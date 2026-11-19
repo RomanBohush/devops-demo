@@ -57,3 +57,14 @@ async def test_cleanup_created_items(client):
 
     # After test completion fixture _cleanup_db_pool will automatically delete this item
     # Next test will verify that cleanup works
+
+
+@pytest.mark.asyncio
+async def test_item_description(client):
+    r = await client.post("/items", json={"name": "WithDesc", "description": "hello"})
+    assert r.status_code == 201
+    assert r.json()["description"] == "hello"
+    item_id = r.json()["id"]
+    r = await client.get("/items")
+    assert any(i["name"] == "WithDesc" and i["description"] == "hello" for i in r.json())
+    await client.delete(f"/items/{item_id}")

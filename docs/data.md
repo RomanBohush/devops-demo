@@ -7,6 +7,7 @@ PostgreSQL, single table:
 - **`items`**
   - `id` (SERIAL PRIMARY KEY)
   - `name` (VARCHAR(100) UNIQUE NOT NULL)
+  - `description` (VARCHAR(500) NULL)
 
 Credentials default to `app`/`app`/`appdb`, overridable via `.env`
 (see `.env.example`).
